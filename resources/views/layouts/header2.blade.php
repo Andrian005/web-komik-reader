@@ -29,7 +29,7 @@
             <!-- BEGIN Dropdown -->
             <div class="dropdown ml-2">
                 <button class="btn btn-flat-primary widget13" data-toggle="dropdown">
-                    <div class="widget13-text"> Hi <strong>User</strong>
+                    <div class="widget13-text"> Hi <strong>{{ Auth::guard('admin')->user()->username }}</strong>
                     </div>
                     <!-- BEGIN Avatar -->
                     <div class="avatar avatar-info widget13-avatar">
@@ -50,15 +50,20 @@
                                     <!-- BEGIN Avatar -->
                                     <div class="avatar avatar-circle">
                                         <div class="avatar-display">
-                                            <img src="{{ asset('panely/assets/images/avatar/blank.webp') }}"
-                                                alt="Avatar image">
+                                            @if (Auth::guard('admin')->user()->image)
+                                                <img src="{{ asset('storage/' . $admin->image) }}" alt="Avatar image"
+                                                    style="width:40px; height:40px; object-fit:cover; border-radius:50%;">
+                                            @else
+                                                <i class="fa fa-user-alt"></i>
+                                            @endif
                                         </div>
                                     </div>
                                     <!-- END Avatar -->
                                 </div>
                                 <div class="rich-list-content">
-                                    <h3 class="rich-list-title text-white">Brielle Williamson</h3>
-                                    <span class="rich-list-subtitle text-white">Software Engineer</span>
+                                    <h3 class="rich-list-title text-white">{{ Auth::guard('admin')->user()->username }}</h3>
+                                    <span
+                                        class="rich-list-subtitle text-white">{{ Auth::guard('admin')->user()->level }}</span>
                                 </div>
                                 <div class="rich-list-append">
                                     <span class="badge badge-warning badge-square badge-lg">9+</span>
@@ -67,7 +72,10 @@
                             <!-- END Rich List Item -->
                         </div>
                         <div class="portlet-footer portlet-footer-bordered rounded-0">
-                            <button class="btn btn-label-danger">Sign out</button>
+                            <form action="{{ route('logout-admin') }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-label-danger">Sign out</button>
+                            </form>
                         </div>
                     </div>
                     <!-- END Portlet -->
