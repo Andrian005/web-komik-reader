@@ -167,10 +167,33 @@
         </button>
     </div>
     <!-- END Float Button -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    @stack('scripts')
     <script type="text/javascript" src="{{ asset('panely/assets/build/scripts/mandatory.js') }}"></script>
     <script type="text/javascript" src="{{ asset('panely/assets/build/scripts/core.js') }}"></script>
     <script type="text/javascript" src="{{ asset('panely/assets/build/scripts/vendor.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('panely/assets/build/scripts/vendor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('panely/assets/app/datatable/basic/base.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('panely/assets/app/elements/toastr.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('panely/assets/app/elements/block-ui.js') }}"></script>
+    <script>
+        var dataTable;
+        
+        function showSuccess(message) {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right",
+                timeOut: 3000,
+                extendedTimeOut: 1000,
+                showDuration: 300,
+                hideDuration: 1000,
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut"
+            };
+            toastr.success(message);
+        }
+    </script>
 </body>
 
 </html>

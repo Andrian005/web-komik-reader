@@ -16,6 +16,7 @@ Route::middleware('admin')->group(function () {
         Route::prefix('master')->group(function () {
             Route::prefix('genre')->group(function () {
                 Route::get('/', [GenreController::class, 'index'])->name('dashboard.master.genre.index');
+                Route::post('store', [GenreController::class, 'store'])->name('dashboard.master.genre.store');
             });
         });
     });
