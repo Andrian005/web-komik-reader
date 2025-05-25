@@ -2,10 +2,9 @@
 
 @section('content')
     <div class="portlet">
-        @include('admin.genre.create')
         <div class="portlet-header portlet-header-bordered">
             <h3 class="portlet-title">{{ $title }}</h3>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#form-create">
+            <button class="btn btn-primary" onclick="create()">
                 Create
             </button>
         </div>
@@ -34,9 +33,72 @@
                 columns: [
                     { data: 'name', name: 'name' },
                     { data: 'slug', name: 'slug' },
-                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, row, meta) {
+                            return `
+                                <button class="btn btn-sm btn-info" title="Lihat" onclick="view(${row.id})">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-warning" title="Edit" onclick="edit(${row.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger btn-delete" title="Hapus" onclick="confirmDelete(() => remove(${row.id}))">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            `;
+                        }
+                    }
                 ]
             });
         });
+
+        function create() {
+            Modal({
+                title: 'Create Genre',
+                url: '{{ route('dashboard.master.genre.create') }}'
+            });
+        }
+
+        function view(id) {
+            const url = '{{ route("dashboard.master.genre.view", ":id") }}'.replace(':id', id);
+            Modal({
+                title: 'View Genre',
+                url: url
+            });
+        }
+
+        function edit(id) {
+            const url = '{{ route("dashboard.master.genre.edit", ":id") }}'.replace(':id', id);
+            Modal({
+                title: 'Edit Genre',
+                url: url
+            });
+        }
+
+        function remove(id) {
+            $.ajax({
+                url: '{{ route("dashboard.master.genre.delete", ":id") }}'.replace(':id', id),
+                type: "POST",
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    showSuccess(response.message);
+                    blockUI('#datatable');
+                    dataTable.ajax.reload();
+                },
+                error: function (xhr) {
+                    let message = 'Terjadi kesalahan.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+                    showError(message);
+                }
+            });
+        }
     </script>
 @endpush

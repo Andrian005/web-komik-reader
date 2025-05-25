@@ -3,15 +3,15 @@
     @include('layouts.partial.validate')
     @include('admin.genre.form')
     <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-primary me-2" onclick="store()">Create</button>
+        <button type="button" class="btn btn-primary me-2" onclick="update({{ $data->id }})">Edit</button>
     </div>
 </form>
 
 <script>
-    function store() {
+    function update(id) {
         let formData = $('#form').serialize();
         $.ajax({
-            url: "{{ route('dashboard.master.genre.store') }}",
+            url: '{{ route("dashboard.master.genre.update", ":id") }}'.replace(':id', id),
             type: "POST",
             data: formData,
             success: function (response) {

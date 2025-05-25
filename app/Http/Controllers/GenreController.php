@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GenreRequest;
 use App\Models\Genre;
+use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -12,46 +14,81 @@ class GenreController extends Controller
     {
         $title = 'Genre';
         if ($request->ajax()) {
-            $query = Genre::All();
+            $query = Genre::all();
             return DataTables::of($query)
                 ->addColumn('action', function ($row) {
-                    return '
-                        <a href="" class="btn btn-sm btn-info" title="Lihat">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="" class="btn btn-sm btn-warning" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger btn-delete" data-id="' . $row->id . '" title="Hapus">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    ';
+                    return $row->id;
                 })
-                ->rawColumns(['action'])
                 ->make(true);
         }
         return view('admin.genre.index', compact('title'));
     }
 
-    public function store(Request $request)
+    public function view($id)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:genres,slug',
-        ], [
-            'nama.required' => 'Nama Harus di Isi',
-            'slug.required' => 'Slug Harus di Isi',
-            'slug.unique' => 'Slug sudah digunakan, gunakan slug lain',
-        ]);
+        $data = Genre::findOrFail($id);
+        return view('admin.genre.view', compact('data'));
+    }
 
-        $genre = Genre::create([
-            'name' => $validated['nama'],
-            'slug' => $validated['slug'],
-        ]);
+    public function create()
+    {
+        return view('admin.genre.create');
+    }
 
-        return response()->json([
-            'message' => 'Genre berhasil ditambahkan.',
-            'data' => $genre
-        ]);
+    public function store(GenreRequest $request)
+    {
+        $validated = $request->validated();
+        try {
+            $genre = Genre::create([
+                'namsse' => $validated['nama'],
+                'slug' => $validated['slug'],
+            ]);
+
+            return response()->json([
+                'message' => 'Genre berhasil ditambahkan.',
+                'data' => $genre
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Gagal menyimpan genre.'], 500);
+        }
+    }
+
+    public function edit($id)
+    {
+        $data = Genre::findOrFail($id);
+        return view('admin.genre.edit', compact('data'));
+    }
+
+    public function update(GenreRequest $request, $id)
+    {
+        $validated = $request->validated();
+        try {
+            $data = Genre::findOrFail($id);
+
+            $data->update([
+                'name' => $validated['nama'],
+                'slug' => $validated['slug'],
+            ]);
+
+            return response()->json([
+                'message' => 'Genre berhasil diupdate.',
+                'data' => $data
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Gagal mengupdate genre.'], 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $data = Genre::find($id)->delete();
+            return response()->json([
+                'message' => 'Genre berhasil didelete.',
+                'data' => $data
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Gagal menghapus genre.'], 500);
+        }
     }
 }
