@@ -18,7 +18,7 @@
     <div class="menu-item">
         <button class="menu-item-link menu-item-toggle">
             <div class="menu-item-icon">
-                <i class="fa fa-database"></i>
+                <i class="fa fa-book"></i>
             </div>
             <span class="menu-item-text">Manajemen Komik</span>
             <div class="menu-item-addon">
@@ -28,9 +28,22 @@
         <!-- BEGIN Menu Submenu -->
         <div class="menu-submenu">
             <div class="menu-item">
-                <a href="{{ route('dashboard.manajemen-komik.genre.index') }}" class="menu-item-link">
-                    <i class="menu-item-bullet"></i>
-                    <span class="menu-item-text">Genre</span>
+                <a href="{{ route('dashboard.manajemen-komik.genre.index') }}"
+                    class="menu-item-link d-flex align-items-center ps-3">
+                    <i class="fa fa-tags d-inline-block text-center pl-4" style="width: 24px;"></i>
+                    <span class="menu-item-text pl-3">Genre</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="" class="menu-item-link d-flex align-items-center ps-3">
+                    <i class="fa fa-book d-inline-block text-center pl-4" style="width: 24px;"></i>
+                    <span class="menu-item-text pl-3">Judul</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="" class="menu-item-link d-flex align-items-center ps-3">
+                    <i class="fa fa-file-alt d-inline-block text-center pl-4" style="width: 24px;"></i>
+                    <span class="menu-item-text pl-3">Chapter & Halaman</span>
                 </a>
             </div>
         </div>
