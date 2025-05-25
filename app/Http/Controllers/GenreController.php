@@ -40,7 +40,7 @@ class GenreController extends Controller
         $validated = $request->validated();
         try {
             $genre = Genre::create([
-                'namsse' => $validated['nama'],
+                'name' => $validated['nama'],
                 'slug' => $validated['slug'],
             ]);
 
