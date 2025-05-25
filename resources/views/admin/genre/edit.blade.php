@@ -11,7 +11,7 @@
     function update(id) {
         let formData = $('#form').serialize();
         $.ajax({
-            url: '{{ route("dashboard.master.genre.update", ":id") }}'.replace(':id', id),
+            url: '{{ route("dashboard.manajemen-komik.genre.update", ":id") }}'.replace(':id', id),
             type: "POST",
             data: formData,
             success: function (response) {

@@ -28,7 +28,7 @@
                 responsive: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('dashboard.master.genre.index') }}',
+                    url: '{{ route('dashboard.manajemen-komik.genre.index') }}',
                 },
                 columns: [
                     { data: 'name', name: 'name' },
@@ -59,12 +59,12 @@
         function create() {
             Modal({
                 title: 'Create Genre',
-                url: '{{ route('dashboard.master.genre.create') }}'
+                url: '{{ route('dashboard.manajemen-komik.genre.create') }}'
             });
         }
 
         function view(id) {
-            const url = '{{ route("dashboard.master.genre.view", ":id") }}'.replace(':id', id);
+            const url = '{{ route("dashboard.manajemen-komik.genre.view", ":id") }}'.replace(':id', id);
             Modal({
                 title: 'View Genre',
                 url: url
@@ -72,7 +72,7 @@
         }
 
         function edit(id) {
-            const url = '{{ route("dashboard.master.genre.edit", ":id") }}'.replace(':id', id);
+            const url = '{{ route("dashboard.manajemen-komik.genre.edit", ":id") }}'.replace(':id', id);
             Modal({
                 title: 'Edit Genre',
                 url: url
@@ -81,7 +81,7 @@
 
         function remove(id) {
             $.ajax({
-                url: '{{ route("dashboard.master.genre.delete", ":id") }}'.replace(':id', id),
+                url: '{{ route("dashboard.manajemen-komik.genre.delete", ":id") }}'.replace(':id', id),
                 type: "POST",
                 data: {
                     _token: '{{ csrf_token() }}'

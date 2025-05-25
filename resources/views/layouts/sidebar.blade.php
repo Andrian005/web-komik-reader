@@ -12,7 +12,7 @@
         <div class="menu-section-icon">
             <i class="fa fa-ellipsis-h"></i>
         </div>
-        <h2 class="menu-section-text">Master Data</h2>
+        <h2 class="menu-section-text">Manajemen Data</h2>
     </div>
     <!-- END Menu Section -->
     <div class="menu-item">
@@ -20,7 +20,7 @@
             <div class="menu-item-icon">
                 <i class="fa fa-database"></i>
             </div>
-            <span class="menu-item-text">Master</span>
+            <span class="menu-item-text">Manajemen Komik</span>
             <div class="menu-item-addon">
                 <i class="menu-item-caret caret"></i>
             </div>
@@ -28,7 +28,7 @@
         <!-- BEGIN Menu Submenu -->
         <div class="menu-submenu">
             <div class="menu-item">
-                <a href="{{ route('dashboard.master.genre.index') }}" class="menu-item-link">
+                <a href="{{ route('dashboard.manajemen-komik.genre.index') }}" class="menu-item-link">
                     <i class="menu-item-bullet"></i>
                     <span class="menu-item-text">Genre</span>
                 </a>

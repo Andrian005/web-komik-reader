@@ -11,7 +11,7 @@
     function store() {
         let formData = $('#form').serialize();
         $.ajax({
-            url: "{{ route('dashboard.master.genre.store') }}",
+            url: "{{ route('dashboard.manajemen-komik.genre.store') }}",
             type: "POST",
             data: formData,
             success: function (response) {
