@@ -26,7 +26,8 @@ class AuthorRequest extends FormRequest
         return [
             'name' => 'required',
             'slug' => 'required|unique:authors,slug' . ($id ? ',' . $id : ''),
-            'bio' => 'nullable'
+            'bio' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 
@@ -36,6 +37,9 @@ class AuthorRequest extends FormRequest
             'name.required' => 'Nama Author harus di isi',
             'slug.required' => 'Slug harus di isi',
             'slug.unique' => 'Slug sudah digunakan, gunakan slug lain',
+            'photo.image' => 'File harus berupa gambar',
+            'photo.mimes' => 'Gambar harus berformat JPG, JPEG, atau PNG',
+            'photo.max' => 'Ukuran gambar maksimal 2MB',
         ];
     }
 }
