@@ -142,28 +142,56 @@ function previewModalPhoto() {
     reader.readAsDataURL(file);
 }
 
-function previewInlinePhoto() {
+function previewPhotoModal() {
     const $input = $("#photo");
     const file = $input[0]?.files[0];
-    const $preview = $("#previewInlineContainer");
     const oldPhotoUrl = $input.data("old-photo");
+    const id = "photoPreviewModal";
+    const title = "Preview Gambar";
+
+    const createImage = (src) => `
+        <img src="${src}" alt="Preview"
+            class="img-fluid rounded shadow"
+            style="max-height: 300px; object-fit: contain;">
+    `;
+
+    if ($("#" + id).length === 0) {
+        $("body").append(`
+            <div class="modal fade" id="${id}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">${title}</h5>
+                            <button type="button" class="btn btn-label-danger btn-icon" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body d-flex justify-content-center align-items-center" style="min-height: 200px;">
+                            <div id="photoPreviewContent" class="w-100 text-center">
+                                <div class="spinner-border text-primary" role="status"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+    }
+
+    const $modal = $("#" + id);
+    const $content = $modal.find("#photoPreviewContent");
 
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            $preview.html(`
-                <img src="${e.target.result}" alt="Preview"
-                    class="img-fluid rounded"
-                    style="height: 10rem; width: 10rem; object-fit: cover;">
-            `);
+            $content.html(createImage(e.target.result));
+            $modal.modal("show");
+            $modal.appendTo("body").modal("show");
         };
         reader.readAsDataURL(file);
     } else if (oldPhotoUrl) {
-        $preview.html(`
-            <img src="${oldPhotoUrl}" alt="Preview"
-                class="img-fluid rounded"
-                style="height: 10rem; width: 10rem; object-fit: cover;">
-        `);
+        $content.html(createImage(oldPhotoUrl));
+        $modal.modal("show");
+        $modal.appendTo("body").modal("show");
     } else {
         Swal.fire("Tidak ada gambar", "Silakan pilih gambar terlebih dahulu.", "warning");
     }

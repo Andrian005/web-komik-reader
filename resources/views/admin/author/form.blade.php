@@ -32,16 +32,7 @@
             </label>
         </div>
         <div class="pl-2">
-            <button type="button" class="btn btn-primary" onclick="previewInlinePhoto()">
-                Preview
-            </button>
+            <button type="button" class="btn btn-primary" onclick="previewPhotoModal()">Preview</button>
         </div>
-    </div>
-    <div id="previewInlineContainer"
-        class="mt-2 border rounded bg-light d-flex justify-content-center align-items-center"
-        style="height: 10rem; width: 10rem; overflow: hidden;">
-        @if (!empty($data->photo))
-            <img src="{{ asset('storage/photo_author/' . $data->photo) }}" alt="Preview" class="img-fluid h-100">
-        @endif
     </div>
 </div>
