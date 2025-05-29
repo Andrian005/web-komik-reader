@@ -12,7 +12,7 @@ class GenreController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Genre';
+        $title = 'Manajemen Genre';
         if ($request->ajax()) {
             $query = Genre::all();
             return DataTables::of($query)

@@ -13,7 +13,7 @@ class ArtistController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Artist';
+        $title = 'Manajemen Artist';
         if ($request->ajax()) {
             $query = Artist::all();
             return DataTables::of($query)
