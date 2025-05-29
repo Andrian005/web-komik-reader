@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\DashboardController;
@@ -44,6 +45,16 @@ Route::middleware('admin')->group(function () {
                 Route::post('store', [AuthorController::class, 'store'])->name('dashboard.manajemen-komik.author.store');
                 Route::post('update/{id}', [AuthorController::class, 'update'])->name('dashboard.manajemen-komik.author.update');
                 Route::post('delete/{id}', [AuthorController::class, 'delete'])->name('dashboard.manajemen-komik.author.delete');
+            });
+
+            Route::prefix('artist')->group(function () {
+                Route::get('/', [ArtistController::class, 'index'])->name('dashboard.manajemen-komik.artist.index');
+                Route::get('view/{id}', [ArtistController::class, 'view'])->name('dashboard.manajemen-komik.artist.view');
+                Route::get('create', [ArtistController::class, 'create'])->name('dashboard.manajemen-komik.artist.create');
+                Route::get('edit/{id}', [ArtistController::class, 'edit'])->name('dashboard.manajemen-komik.artist.edit');
+                Route::post('store', [ArtistController::class, 'store'])->name('dashboard.manajemen-komik.artist.store');
+                Route::post('update/{id}', [ArtistController::class, 'update'])->name('dashboard.manajemen-komik.artist.update');
+                Route::post('delete/{id}', [ArtistController::class, 'delete'])->name('dashboard.manajemen-komik.artist.delete');
             });
         });
     });

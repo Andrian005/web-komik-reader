@@ -49,7 +49,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a href=""
+                <a href="{{ route('dashboard.manajemen-komik.artist.index') }}"
                     class="menu-item-link d-flex align-items-center ps-3">
                     <i class="fa fa-paint-brush d-inline-block text-center pl-4" style="width: 24px;"></i>
                     <span class="menu-item-text pl-3">Artist</span>
