@@ -1,4 +1,4 @@
-function Modal({ title = "", url = "", id = "modal" }) {
+function Modal({ title = "", url = "", content = "", id = "modal" }) {
     $("#" + id).remove();
 
     $("body").append(`
@@ -13,7 +13,11 @@ function Modal({ title = "", url = "", id = "modal" }) {
                     </div>
                     <div class="modal-body">
                         <div class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-                            <div class="spinner-border text-primary" role="status"></div>
+                            ${
+                                content
+                                    ? content
+                                    : '<div class="spinner-border text-primary" role="status"></div>'
+                            }
                         </div>
                     </div>
                 </div>
@@ -24,15 +28,19 @@ function Modal({ title = "", url = "", id = "modal" }) {
     const $modal = $("#" + id);
     $modal.modal("show");
 
-    $.get(url, function (res) {
-        $modal.find(".modal-body").html(res);
-    }).fail(function () {
-        $modal
-            .find(".modal-body")
-            .html(
-                '<div class="text-danger"><div class="d-flex justify-content-center align-items-center" style="min-height: 200px;">Gagal memuat konten.</div></div>'
-            );
-    });
+    if (url && !content) {
+        $.get(url, function (res) {
+            $modal.find(".modal-body").html(res);
+        }).fail(function () {
+            $modal.find(".modal-body").html(`
+                <div class="text-danger">
+                    <div class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+                        Gagal memuat konten.
+                    </div>
+                </div>
+            `);
+        });
+    }
 }
 
 function showSuccess(message) {
@@ -50,38 +58,22 @@ function showSuccess(message) {
     toastr.success(message);
 }
 
-function showError(message) {
+function showToast(type, message) {
     toastr.options = {
         closeButton: true,
         progressBar: true,
         positionClass: "toast-top-right",
-        timeOut: 5000,
-        extendedTimeOut: 2000,
-        showDuration: 300,
-        hideDuration: 1000,
+        timeOut: type === "error" ? 5000 : 3000,
+        extendedTimeOut: 1000,
         showMethod: "fadeIn",
         hideMethod: "fadeOut",
     };
-    toastr.error(message);
+
+    toastr[type](message);
 }
 
 function showErrors(errors) {
-    toastr.options = {
-        closeButton: true,
-        progressBar: true,
-        positionClass: "toast-top-right",
-        timeOut: 5000,
-        extendedTimeOut: 2000,
-        showDuration: 300,
-        hideDuration: 1000,
-        showMethod: "fadeIn",
-        hideMethod: "fadeOut",
-    };
-    for (const key in errors) {
-        if (errors.hasOwnProperty(key)) {
-            errors[key].forEach((msg) => toastr.error(msg));
-        }
-    }
+    Object.values(errors).flat().forEach(msg => showToast("error", msg));
 }
 
 function confirmDelete(callback) {
@@ -93,11 +85,86 @@ function confirmDelete(callback) {
         confirmButtonText: "Ya, hapus!",
         cancelButtonText: "Batal",
         reverseButtons: true,
-    }).then(function (result) {
-        if (result.isConfirmed) {
-            if (typeof callback === "function") callback();
+    }).then((result) => {
+        if (result.isConfirmed && typeof callback === "function") {
+            callback();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire("Dibatalkan", "Data tidak jadi dihapus.", "error");
         }
     });
+}
+
+$(function () {
+    const isRtl = $("html").attr("dir") === "rtl";
+
+    $(".select2").select2({
+        dir: isRtl ? "rtl" : "ltr",
+        dropdownAutoWidth: true,
+        width: "100%",
+    });
+
+    $(".datepicker").datepicker({
+        orientation: isRtl ? "rtl" : "ltr",
+        autoclose: true,
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years",
+    });
+
+    $(document).on("change", "#photo", function () {
+        $(this).next(".custom-file-label").html(this.files[0]?.name || "Pilih file");
+    });
+
+    $(document).on("input", "[slug-source]", function () {
+        const slug = $(this).val()
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-");
+
+        $(this).closest("form").find("[slug-target]").val(slug);
+    });
+});
+
+function previewModalPhoto() {
+    const file = $("#photo")[0]?.files[0];
+
+    if (!file) {
+        Swal.fire("Tidak ada gambar", "Silakan pilih gambar terlebih dahulu.", "warning");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = `<img src="${e.target.result}" alt="Preview" class="img-fluid rounded">`;
+        createModal({ title: "Preview", content: img });
+    };
+    reader.readAsDataURL(file);
+}
+
+function previewInlinePhoto() {
+    const $input = $("#photo");
+    const file = $input[0]?.files[0];
+    const $preview = $("#previewInlineContainer");
+    const oldPhotoUrl = $input.data("old-photo");
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            $preview.html(`
+                <img src="${e.target.result}" alt="Preview"
+                    class="img-fluid rounded"
+                    style="height: 10rem; width: 10rem; object-fit: cover;">
+            `);
+        };
+        reader.readAsDataURL(file);
+    } else if (oldPhotoUrl) {
+        $preview.html(`
+            <img src="${oldPhotoUrl}" alt="Preview"
+                class="img-fluid rounded"
+                style="height: 10rem; width: 10rem; object-fit: cover;">
+        `);
+    } else {
+        Swal.fire("Tidak ada gambar", "Silakan pilih gambar terlebih dahulu.", "warning");
+    }
 }

@@ -28,6 +28,13 @@
         <!-- BEGIN Menu Submenu -->
         <div class="menu-submenu">
             <div class="menu-item">
+                <a href="{{ route('dashboard.manajemen-komik.judul.index') }}"
+                    class="menu-item-link d-flex align-items-center ps-3">
+                    <i class="fa fa-book d-inline-block text-center pl-4" style="width: 24px;"></i>
+                    <span class="menu-item-text pl-3">Judul</span>
+                </a>
+            </div>
+            <div class="menu-item">
                 <a href="{{ route('dashboard.manajemen-komik.genre.index') }}"
                     class="menu-item-link d-flex align-items-center ps-3">
                     <i class="fa fa-tags d-inline-block text-center pl-4" style="width: 24px;"></i>
@@ -35,9 +42,17 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a href="" class="menu-item-link d-flex align-items-center ps-3">
-                    <i class="fa fa-book d-inline-block text-center pl-4" style="width: 24px;"></i>
-                    <span class="menu-item-text pl-3">Judul</span>
+                <a href="{{ route('dashboard.manajemen-komik.author.index') }}"
+                    class="menu-item-link d-flex align-items-center ps-3">
+                    <i class="fa fa-user d-inline-block text-center pl-4" style="width: 24px;"></i>
+                    <span class="menu-item-text pl-3">Author</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href=""
+                    class="menu-item-link d-flex align-items-center ps-3">
+                    <i class="fa fa-paint-brush d-inline-block text-center pl-4" style="width: 24px;"></i>
+                    <span class="menu-item-text pl-3">Artist</span>
                 </a>
             </div>
             <div class="menu-item">
