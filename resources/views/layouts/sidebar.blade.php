@@ -34,36 +34,36 @@
         <div class="menu-submenu" style="{{ $manajemenKomikActive ? 'display: block;' : '' }}">
             <div class="menu-item">
                 <a href="{{ route('dashboard.manajemen-komik.genre.index') }}"
-                    class="menu-item-link d-flex align-items-center ps-3 {{ request()->routeIs('dashboard.manajemen-komik.genre.*') ? 'active' : '' }}">
-                    <i class="fa fa-tags d-inline-block text-center pl-4" style="width: 24px;"></i>
-                    <span class="menu-item-text pl-3">Genre</span>
+                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.genre.*') ? 'active' : '' }}">
+                    <i class="menu-item-bullet"></i>
+                    <span class="menu-item-text">Genre</span>
                 </a>
             </div>
             <div class="menu-item">
                 <a href="{{ route('dashboard.manajemen-komik.author.index') }}"
-                    class="menu-item-link d-flex align-items-center ps-3 {{ request()->routeIs('dashboard.manajemen-komik.author.*') ? 'active' : '' }}">
-                    <i class="fa fa-user d-inline-block text-center pl-4" style="width: 24px;"></i>
-                    <span class="menu-item-text pl-3">Author</span>
+                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.author.*') ? 'active' : '' }}">
+                    <i class="menu-item-bullet"></i>
+                    <span class="menu-item-text">Author</span>
                 </a>
             </div>
             <div class="menu-item">
                 <a href="{{ route('dashboard.manajemen-komik.artist.index') }}"
-                    class="menu-item-link d-flex align-items-center ps-3 {{ request()->routeIs('dashboard.manajemen-komik.artist.*') ? 'active' : '' }}">
-                    <i class="fa fa-paint-brush d-inline-block text-center pl-4" style="width: 24px;"></i>
-                    <span class="menu-item-text pl-3">Artist</span>
+                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.artist.*') ? 'active' : '' }}">
+                    <i class="menu-item-bullet"></i>
+                    <span class="menu-item-text">Artist</span>
                 </a>
             </div>
             <div class="menu-item">
                 <a href="{{ route('dashboard.manajemen-komik.judul.index') }}"
-                    class="menu-item-link d-flex align-items-center ps-3 {{ request()->routeIs('dashboard.manajemen-komik.judul.*') ? 'active' : '' }}">
-                    <i class="fa fa-book d-inline-block text-center pl-4" style="width: 24px;"></i>
-                    <span class="menu-item-text pl-3">Judul</span>
+                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.judul.*') ? 'active' : '' }}">
+                    <i class="menu-item-bullet"></i>
+                    <span class="menu-item-text">Judul</span>
                 </a>
             </div>
             <div class="menu-item">
-                <a href="#" class="menu-item-link d-flex align-items-center ps-3">
-                    <i class="fa fa-file-alt d-inline-block text-center pl-4" style="width: 24px;"></i>
-                    <span class="menu-item-text pl-3">Chapter & Halaman</span>
+                <a href="#" class="menu-item-link">
+                    <i class="menu-item-bullet"></i>
+                    <span class="menu-item-text">Chapter & Halaman</span>
                 </a>
             </div>
         </div>
