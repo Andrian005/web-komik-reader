@@ -72,7 +72,7 @@ function showToast(type, message) {
     toastr[type](message);
 }
 
-function showErrors(errors) {
+function showError(errors) {
     Object.values(errors).flat().forEach(msg => showToast("error", msg));
 }
 
@@ -125,22 +125,6 @@ $(function () {
         $(this).closest("form").find("[slug-target]").val(slug);
     });
 });
-
-function previewModalPhoto() {
-    const file = $("#photo")[0]?.files[0];
-
-    if (!file) {
-        Swal.fire("Tidak ada gambar", "Silakan pilih gambar terlebih dahulu.", "warning");
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const img = `<img src="${e.target.result}" alt="Preview" class="img-fluid rounded">`;
-        createModal({ title: "Preview", content: img });
-    };
-    reader.readAsDataURL(file);
-}
 
 function previewPhotoModal() {
     const $input = $("#photo");

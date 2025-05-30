@@ -1,19 +1,27 @@
 <div class="table-responsive">
-    <table class="table mb-0">
-        <tr>
-            <th style="border: 0; width: 120px; padding-left: 0;">Nama Genre</th>
-            <td style="border: 0; width: 1px;">:</td>
-            <td style="border: 0;">{{ $data->name }}</td>
-        </tr>
-        <tr>
-            <th style="border: 0; padding-left: 0;">Slug</th>
-            <td style="border: 0;">:</td>
-            <td style="border: 0;">{{ $data->slug }}</td>
-        </tr>
-        <tr>
-            <th style="border: 0; padding-left: 0;">Created At</th>
-            <td style="border: 0;">:</td>
-            <td style="border: 0;">{{ $data->created_at }}</td>
-        </tr>
+    <table class="table table-borderless align-middle">
+        <tbody>
+            <tr>
+                <td class="fw-semibold text-nowrap">
+                    <i class="fas fa-tags text-primary me-3"></i> Nama Genre
+                </td>
+                <td>:</td>
+                <td>{{ $data->name }}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold text-nowrap">
+                    <i class="fas fa-link text-secondary me-3"></i> Slug
+                </td>
+                <td>:</td>
+                <td>{{ $data->slug }}</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold text-nowrap">
+                    <i class="fas fa-calendar-alt text-info me-3"></i> Created At
+                </td>
+                <td>:</td>
+                <td>{{ $data->created_at }}</td>
+            </tr>
+        </tbody>
     </table>
 </div>
