@@ -73,6 +73,8 @@
                             @endphp
                             @foreach($segments as $index => $segment)
                                 @php
+                                    if (is_numeric($segment) || preg_match('/^[0-9a-fA-F-]{36}$/', $segment))
+                                        continue;
                                     $url = url(implode('/', array_slice($segments, 0, $index + 1)));
                                     $name = ucwords(str_replace('-', ' ', $segment));
                                 @endphp
@@ -112,6 +114,8 @@
                             @endphp
                             @foreach($segments as $index => $segment)
                                 @php
+                                    if (is_numeric($segment) || preg_match('/^[0-9a-fA-F-]{36}$/', $segment))
+                                        continue;
                                     $url = url(implode('/', array_slice($segments, 0, $index + 1)));
                                     $name = ucwords(str_replace('-', ' ', $segment));
                                 @endphp
