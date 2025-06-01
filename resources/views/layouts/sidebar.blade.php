@@ -55,15 +55,9 @@
             </div>
             <div class="menu-item">
                 <a href="{{ route('dashboard.manajemen-komik.judul.index') }}"
-                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.judul.*') ? 'active' : '' }}">
+                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.judul.*') || request()->routeIs('dashboard.manajemen-komik.chapter.*') ? 'active' : '' }}">
                     <i class="menu-item-bullet"></i>
                     <span class="menu-item-text">Judul</span>
-                </a>
-            </div>
-            <div class="menu-item">
-                <a href="#" class="menu-item-link">
-                    <i class="menu-item-bullet"></i>
-                    <span class="menu-item-text">Chapter & Halaman</span>
                 </a>
             </div>
         </div>

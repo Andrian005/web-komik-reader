@@ -10,6 +10,10 @@
     <link href="{{ asset('panely/assets/build/styles/ltr-core.css') }}" rel="stylesheet">
     <link href="{{ asset('panely/assets/build/styles/ltr-vendor.css') }}" rel="stylesheet">
     <link href="{{ asset('panely/assets/images/favicon.ico') }}" rel="shortcut icon" type="image/x-icon">
+    {{-- FilePond CSS --}}
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet" />
     <title>Dashboard | Panely</title>
 </head>
 
@@ -168,6 +172,13 @@
     </div>
     <!-- END Float Button -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- FilePond JS --}}
+    <script
+        src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script
+        src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
     @stack('scripts')
     <script type="text/javascript" src="{{ asset('panely/assets/build/scripts/mandatory.js') }}"></script>

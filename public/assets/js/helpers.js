@@ -111,6 +111,16 @@ $(function () {
         minViewMode: "years",
     });
 
+    $(".datepicker2").datepicker({
+        dateFormat: 'mm/dd/yy',
+        showSecond: true,
+        controlType: 'select',
+        oneLine: true,
+        todayHighlight: true
+    });
+    $(".datepicker2").datepicker('setDate', new Date());
+
+
     $(document).on("change", "#photo", function () {
         $(this).next(".custom-file-label").html(this.files[0]?.name || "Pilih file");
     });
@@ -124,6 +134,11 @@ $(function () {
 
         $(this).closest("form").find("[slug-target]").val(slug);
     });
+
+    $('.number').on('input', function() {
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+
 });
 
 function previewPhotoModal() {

@@ -3,9 +3,12 @@
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\ChapterPageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\JudulController;
+use App\Models\ChapterPage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login-admin', [LoginAdminController::class, 'index'])->name('login-admin');
@@ -55,6 +58,17 @@ Route::middleware('admin')->group(function () {
                 Route::get('edit/{id}', [JudulController::class, 'edit'])->name('dashboard.manajemen-komik.judul.edit');
                 Route::post('update/{id}', [JudulController::class, 'update'])->name('dashboard.manajemen-komik.judul.update');
                 Route::post('delete/{id}', [JudulController::class, 'delete'])->name('dashboard.manajemen-komik.judul.delete');
+
+                Route::prefix('chapter')->group(function () {
+                    Route::get('create/{title_id}', [ChapterController::class, 'create'])->name('dashboard.manajemen-komik.chapter.create');
+                    Route::post('store/{title_id}', [ChapterController::class, 'store'])->name('dashboard.manajemen-komik.chapter.store');
+                    Route::get('view-chapter/{title_id}', [ChapterController::class, 'viewChapter'])->name('dashboard.manajemen-komik.chapter.view-chapter');
+                    Route::get('edit/{id}', [ChapterController::class, 'edit'])->name('dashboard.manajemen-komik.chapter.edit');
+                    Route::post('update/{id}', [ChapterController::class, 'update'])->name('dashboard.manajemen-komik.chapter.update');
+                    Route::post('delete/{id}', [ChapterController::class, 'delete'])->name('dashboard.manajemen-komik.chapter.delete');
+                    Route::post('chapter-pages/upload', [ChapterPageController::class, 'upload'])->name('chapter_pages.upload');
+                    Route::post('chapter-pages/delete', [ChapterPageController::class, 'delete'])->name('chapter_pages.delete');
+                });
             });
         });
     });

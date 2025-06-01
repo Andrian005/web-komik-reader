@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Title extends Model
 {
     use SoftDeletes;
-    
+
     protected $primary_key = 'id';
     protected $table = 'titles';
     protected $fillable = [
@@ -40,6 +40,11 @@ class Title extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'title_genre', 'title_id', 'genre_id');
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class, 'title_id', 'id');
     }
 
 }
