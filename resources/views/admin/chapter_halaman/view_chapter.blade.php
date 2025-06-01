@@ -67,11 +67,14 @@
         $(document).on('click', '.toggle-pages', function () {
             const chapterId = $(this).data('id');
             const $target = $('#pages-' + chapterId);
+            const $button = $(this);
 
             if ($target.is(':visible')) {
                 $target.slideUp();
+                $button.removeClass('btn-primary active').addClass('btn-outline-primary');
             } else {
                 $target.hide().removeClass('d-none').slideDown();
+                $button.removeClass('btn-outline-primary').addClass('btn-primary active');
             }
         });
     </script>
