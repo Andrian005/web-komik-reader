@@ -22,7 +22,9 @@ class ComicTitleController extends Controller
     {
         $title = 'Manajemen Comic Titles';
         if ($request->ajax()) {
-            $query = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'created_at'])->with(['authors:id,name', 'artists:id,name', 'genres:id,name']);
+            $query = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'created_at'])
+                ->whereIn('type', ['manga', 'manhua', 'manhwa'])
+                ->with(['authors:id,name', 'artists:id,name', 'genres:id,name']);
             return DataTables::of($query)
                 ->addColumn('action', function ($row) {
                     return $row->id;
@@ -59,7 +61,8 @@ class ComicTitleController extends Controller
 
     public function view($id)
     {
-        $data = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'cover_image', 'synopsis', 'created_at'])->with(['authors:id,name', 'artists:id,name', 'genres:id,name'])->find($id);
+        $data = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'cover_image', 'synopsis', 'created_at'])
+            ->with(['authors:id,name', 'artists:id,name', 'genres:id,name'])->find($id);
         return view('admin.comic_title.view', compact('data'));
     }
 
@@ -122,7 +125,8 @@ class ComicTitleController extends Controller
     public function edit($id)
     {
         $title = 'Edit Judul';
-        $data = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'synopsis', 'cover_image', 'created_at'])->with(['authors', 'artists', 'genres'])->find($id);
+        $data = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'synopsis', 'cover_image', 'created_at'])
+            ->with(['authors', 'artists', 'genres'])->find($id);
         $data->author_id = $data->authors->pluck('id')->toArray();
         $data->artist_id = $data->artists->pluck('id')->toArray();
         $data->genre_id = $data->genres->pluck('id')->toArray();
