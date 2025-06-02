@@ -18,7 +18,6 @@
     <div class="col-md-6 mb-3">
         <label for="type" class="form-label">Type</label>
         <select name="type" id="type" class="form-select select2">
-            <option value="novel" {{ (old('type') ?? $data->type ?? '') == 'novel' ? 'selected' : '' }}>Novel</option>
             <option value="manga" {{ (old('type') ?? $data->type ?? '') == 'manga' ? 'selected' : '' }}>Manga</option>
             <option value="manhua" {{ (old('type') ?? $data->type ?? '') == 'manhua' ? 'selected' : '' }}>Manhua</option>
             <option value="manhwa" {{ (old('type') ?? $data->type ?? '') == 'manhwa' ? 'selected' : '' }}>Manhwa</option>
@@ -68,7 +67,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="genre_id" class="form-label">Genres</label>
+        <label for="genre_id" class="form-label">Genre</label>
         <select name="genre_id[]" id="genre_id" class="form-select select2" multiple required>
             @foreach ($data['genres'] as $genre)
                 <option value="{{ $genre->id }}" @if (in_array($genre->id, old('genre_id', $data->genre_id ?? []))) selected

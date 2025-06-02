@@ -8,9 +8,10 @@
                 @include('layouts.partial.validate')
                 @include('layouts.partial.success')
                 @include('admin.comic_title.form')
-                <div class="mt-3">
-                    <button type="button" class="btn btn-success" onclick="update({{ $data->id }})">Submit</button>
-                    <a href="{{ route('dashboard.manage-comics.comic-titles.index') }}" class="btn btn-secondary">Kembali</a>
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <a href="{{ route('dashboard.manage-comics.comic-titles.index') }}" class="btn btn-secondary"><i
+                            class="fas fa-arrow-left me-1"></i> Kembali</a>
+                    <button type="button" class="btn btn-success" onclick="update({{ $data->id }})">Update</button>
                 </div>
             </form>
         </div>
