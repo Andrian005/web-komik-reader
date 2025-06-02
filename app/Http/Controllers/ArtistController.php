@@ -13,7 +13,7 @@ class ArtistController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Manajemen Artist';
+        $title = 'Artist';
         if ($request->ajax()) {
             $query = Artist::all();
             return DataTables::of($query)
@@ -22,17 +22,17 @@ class ArtistController extends Controller
                 })
                 ->make(true);
         }
-        return view('admin.artist.index', compact('title'));
+        return view('admin.master_data.artist.index', compact('title'));
     }
     public function view($id)
     {
         $data = Artist::find($id);
-        return view('admin.artist.view', compact('data'));
+        return view('admin.master_data.artist.view', compact('data'));
     }
 
     public function create()
     {
-        return view('admin.artist.create');
+        return view('admin.master_data.artist.create');
     }
 
     public function store(ArtistRequest $request)
@@ -68,7 +68,7 @@ class ArtistController extends Controller
     public function edit($id)
     {
         $data = Artist::findOrFail($id);
-        return view('admin.artist.edit', compact('data'));
+        return view('admin.master_data.artist.edit', compact('data'));
     }
 
     public function update(ArtistRequest $request, $id)

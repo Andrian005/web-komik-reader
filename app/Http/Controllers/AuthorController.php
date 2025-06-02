@@ -13,7 +13,7 @@ class AuthorController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Manajemen Author';
+        $title = 'Author';
         if ($request->ajax()) {
             $query = Author::all();
             return DataTables::of($query)
@@ -22,18 +22,18 @@ class AuthorController extends Controller
                 })
                 ->make(true);
         }
-        return view('admin.author.index', compact('title'));
+        return view('admin.master_data.author.index', compact('title'));
     }
 
     public function view($id)
     {
         $data = Author::find($id);
-        return view('admin.author.view', compact('data'));
+        return view('admin.master_data.author.view', compact('data'));
     }
 
     public function create()
     {
-        return view('admin.author.create');
+        return view('admin.master_data.author.create');
     }
 
     public function store(AuthorRequest $request)
@@ -69,7 +69,7 @@ class AuthorController extends Controller
     public function edit($id)
     {
         $data = Author::findOrFail($id);
-        return view('admin.author.edit', compact('data'));
+        return view('admin.master_data.author.edit', compact('data'));
     }
 
     public function update(AuthorRequest $request, $id)

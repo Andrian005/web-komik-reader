@@ -7,60 +7,61 @@
             <span class="menu-item-text">Dashboard</span>
         </a>
     </div>
-    <!-- BEGIN Menu Section -->
-    <div class="menu-section">
-        <div class="menu-section-icon">
-            <i class="fa fa-ellipsis-h"></i>
-        </div>
-        <h2 class="menu-section-text">Manajemen Data</h2>
-    </div>
-    <!-- END Menu Section -->
 
     @php
-        $manajemenKomikActive = request()->routeIs('dashboard.manajemen-komik.*');
+        $masterData = request()->routeIs('dashboard.master-data.*');
     @endphp
 
-    <div class="menu-item {{ $manajemenKomikActive ? 'active' : '' }}">
-        <button class="menu-item-link menu-item-toggle {{ $manajemenKomikActive ? 'active' : '' }}">
+    <div class="menu-item {{ $masterData ? 'active' : '' }}">
+        <button class="menu-item-link menu-item-toggle {{ $masterData ? 'active' : '' }}">
             <div class="menu-item-icon">
-                <i class="fa fa-book"></i>
+                <i class="fa fa-database"></i>
             </div>
-            <span class="menu-item-text">Manajemen Komik</span>
+            <span class="menu-item-text">Master Data</span>
             <div class="menu-item-addon">
                 <i class="menu-item-caret caret"></i>
             </div>
         </button>
-        <!-- BEGIN Menu Submenu -->
-        <div class="menu-submenu" style="{{ $manajemenKomikActive ? 'display: block;' : '' }}">
+        <div class="menu-submenu" style="{{ $masterData ? 'display: block;' : '' }}">
             <div class="menu-item">
-                <a href="{{ route('dashboard.manajemen-komik.genre.index') }}"
-                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.genre.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.master-data.genre.index') }}"
+                    class="menu-item-link {{ request()->routeIs('dashboard.master-data.genre.*') ? 'active' : '' }}">
                     <i class="menu-item-bullet"></i>
                     <span class="menu-item-text">Genre</span>
                 </a>
             </div>
             <div class="menu-item">
-                <a href="{{ route('dashboard.manajemen-komik.author.index') }}"
-                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.author.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.master-data.author.index') }}"
+                    class="menu-item-link {{ request()->routeIs('dashboard.master-data.author.*') ? 'active' : '' }}">
                     <i class="menu-item-bullet"></i>
                     <span class="menu-item-text">Author</span>
                 </a>
             </div>
             <div class="menu-item">
-                <a href="{{ route('dashboard.manajemen-komik.artist.index') }}"
-                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.artist.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.master-data.artist.index') }}"
+                    class="menu-item-link {{ request()->routeIs('dashboard.master-data.artist.*') ? 'active' : '' }}">
                     <i class="menu-item-bullet"></i>
                     <span class="menu-item-text">Artist</span>
                 </a>
             </div>
-            <div class="menu-item">
-                <a href="{{ route('dashboard.manajemen-komik.judul.index') }}"
-                    class="menu-item-link {{ request()->routeIs('dashboard.manajemen-komik.judul.*') || request()->routeIs('dashboard.manajemen-komik.chapter.*') ? 'active' : '' }}">
-                    <i class="menu-item-bullet"></i>
-                    <span class="menu-item-text">Judul</span>
-                </a>
-            </div>
         </div>
-        <!-- END Menu Submenu -->
+    </div>
+
+    <div class="menu-item">
+        <a href="{{ route('dashboard.manage-comics.comic-titles.index') }}" class="menu-item-link {{ request()->routeIs('dashboard.manage-comics.comic-titles.index') ? 'active' : '' }}">
+            <div class="menu-item-icon">
+                <i class="fa fa-images"></i>
+            </div>
+            <span class="menu-item-text">Manage Comics</span>
+        </a>
+    </div>
+
+    <div class="menu-item">
+        <a href="" class="menu-item-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+            <div class="menu-item-icon">
+                <i class="fa fa-book-open"></i>
+            </div>
+            <span class="menu-item-text">Manage Light Novel</span>
+        </a>
     </div>
 </div>

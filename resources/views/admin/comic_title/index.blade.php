@@ -4,7 +4,7 @@
     <div class="portlet">
         <div class="portlet-header portlet-header-bordered d-flex justify-content-between align-items-center">
             <h3 class="portlet-title">{{ $title }}</h3>
-            <a href="{{ route('dashboard.manajemen-komik.judul.create') }}" class="btn btn-primary">
+            <a href="{{ route('dashboard.manage-comics.comic-titles.create') }}" class="btn btn-primary">
                 Create
             </a>
         </div>
@@ -28,15 +28,15 @@
 
 @push('scripts')
 <script>
-    const urlEdit = "{{ route('dashboard.manajemen-komik.judul.edit', ['id' => 'ID']) }}";
-    const urlCreateChapter = "{{ route('dashboard.manajemen-komik.chapter.create', ['title_id' => 'ID']) }}";
-    const urlViewChapter = "{{ route('dashboard.manajemen-komik.chapter.view-chapter', ['title_id' => 'ID']) }}";
+    const urlEdit = "{{ route('dashboard.manage-comics.comic-titles.edit', ['id' => 'ID']) }}";
+    const urlCreateChapter = "{{ route('dashboard.manage-comics.comic-titles.chapter.create', ['comic_title_id' => 'ID']) }}";
+    const urlViewChapter = "{{ route('dashboard.manage-comics.comic-titles.chapter.view-chapter', ['comic_title_id' => 'ID']) }}";
 
     $(function () {
         $('#datatable').DataTable({
             responsive: true,
             serverSide: true,
-            ajax: '{{ route('dashboard.manajemen-komik.judul.index') }}',
+            ajax: '{{ route('dashboard.manage-comics.comic-titles.index') }}',
             columns: [
                 { data: 'title', name: 'title' },
                 { data: 'type', name: 'type' },
@@ -86,9 +86,6 @@
                             <button class="btn btn-sm btn-danger btn-delete" title="Hapus" onclick="confirmDelete(() => remove(${row.id}))">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
-                            <button class="btn btn-sm btn-primary btn-merge" title="Gabungkan" onclick="">
-                                <i class="fas fa-compress-arrows-alt"></i>
-                            </button>
                         `;
                     }
                 }
@@ -97,7 +94,7 @@
     });
 
     function view(id) {
-        const url = '{{ route("dashboard.manajemen-komik.judul.view", ":id") }}'.replace(':id', id);
+        const url = '{{ route("dashboard.manage-comics.comic-titles.view", ":id") }}'.replace(':id', id);
         Modal({
             title: 'View Judul',
             url: url
@@ -106,7 +103,7 @@
 
     function remove(id) {
         $.ajax({
-            url: '{{ route("dashboard.manajemen-komik.judul.delete", ":id") }}'.replace(':id', id),
+            url: '{{ route("dashboard.manage-comics.comic-titles.delete", ":id") }}'.replace(':id', id),
             type: "POST",
             data: { _token: '{{ csrf_token() }}' },
             success: function (res) {

@@ -11,7 +11,7 @@
                 @include('layouts.partial.validate')
                 @include('admin.chapter_halaman.form')
                 <div class="d-flex justify-content-between align-items-center mt-3">
-                    <a href="{{ route('dashboard.manajemen-komik.judul.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('dashboard.manage-comics.comic-titles.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left me-1"></i> Kembali
                     </a>
                     <div class="d-flex gap-2">
@@ -106,7 +106,7 @@
             let uploadedFiles = pond.getFiles().map(fileItem => fileItem.serverId);
             formData.append('uploaded_files', JSON.stringify(uploadedFiles));
             $.ajax({
-                url: "{{ route('dashboard.manajemen-komik.chapter.store', ['title_id' => $data->id]) }}",
+                url: "{{ route('dashboard.manage-comics.comic-titles.chapter.store', ['comic_title_id' => $data->id]) }}",
                 type: "POST",
                 data: formData,
                 processData: false,

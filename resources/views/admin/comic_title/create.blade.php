@@ -7,11 +7,11 @@
                 @csrf
                 @include('layouts.partial.validate')
                 @include('layouts.partial.success')
-                @include('admin.judul.form')
+                @include('admin.comic_title.form')
                 <div class="mt-3 d-flex justify-content-between align-items-center">
                     <div>
                         <button type="button" class="btn btn-success" onclick="store()">Submit</button>
-                        <a href="{{ route('dashboard.manajemen-komik.judul.index') }}" class="btn btn-secondary">Kembali</a>
+                        <a href="{{ route('dashboard.manage-comics.comic-titles.index') }}" class="btn btn-secondary">Kembali</a>
                     </div>
 
                     <button id="btn-next-chapter" type="button" class="btn btn-primary d-none" onclick="goToChapter()">
@@ -31,7 +31,7 @@
             var form = $('#form')[0];
             var formData = new FormData(form);
             $.ajax({
-                url: "{{ route('dashboard.manajemen-komik.judul.store') }}",
+                url: "{{ route('dashboard.manage-comics.comic-titles.store') }}",
                 type: "POST",
                 data: formData,
                 processData: false,

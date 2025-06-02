@@ -14,27 +14,27 @@ use Illuminate\Support\Facades\Storage;
 
 class ChapterController extends Controller
 {
-    public function create($title_id)
+    public function create($comic_title_id)
     {
         $title = 'Create Chapter Page';
-        $data = Title::select('id', 'title')->find($title_id);
+        $data = Title::select('id', 'title')->find($comic_title_id);
         return view('admin.chapter_halaman.create', compact('title', 'data'));
     }
 
-    public function store(Request $request, $title_id)
+    public function store(Request $request, $comic_title_id)
     {
         try {
             $releaseDate = Carbon::parse($request->release_date)->format('Y-m-d');
 
             $chapter = Chapter::create([
-                'title_id' => $title_id,
+                'title_id' => $comic_title_id,
                 'chapter_number' => $request->chapter_number,
                 'chapter_title' => $request->chapter_title,
                 'release_date' => $releaseDate,
                 'views' => 0,
             ]);
 
-            $titleModel = Title::findOrFail($title_id);
+            $titleModel = Title::findOrFail($comic_title_id);
             $uploadedFiles = json_decode($request->input('uploaded_files'), true);
             if (is_array($uploadedFiles) && count($uploadedFiles) > 0) {
                 $title = Str::slug($titleModel->title);
@@ -70,14 +70,14 @@ class ChapterController extends Controller
         }
     }
 
-    public function viewChapter($title_id)
+    public function viewChapter($comic_title_id)
     {
         $title = 'View Chapter';
         $data = Title::with([
             'chapters' => function ($q) {
                 $q->with('chapterPages')->orderBy('chapter_number', 'asc');
             }
-        ])->findOrFail($title_id);
+        ])->findOrFail($comic_title_id);
 
         return view('admin.chapter_halaman.view_chapter', compact('title', 'data'));
     }

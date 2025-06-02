@@ -1,7 +1,7 @@
 <form id="form" class="mt-3" enctype="multipart/form-data">
     @csrf
     @include('layouts.partial.validate')
-    @include('admin.author.form')
+    @include('admin.master_data.author.form')
     <div class="d-flex justify-content-end">
         <button type="button" class="btn btn-primary me-2" onclick="update({{ $data->id }})">Update</button>
     </div>
@@ -12,7 +12,7 @@
         let form = $('#form')[0];
         let formData = new FormData(form);
         $.ajax({
-            url: '{{ route("dashboard.manajemen-komik.author.update", ":id") }}'.replace(':id', id),
+            url: '{{ route("dashboard.master-data.author.update", ":id") }}'.replace(':id', id),
             type: "POST",
             data: formData,
             processData: false,

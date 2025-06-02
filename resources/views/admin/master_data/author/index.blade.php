@@ -12,7 +12,7 @@
             <table id="datatable" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Name Artist</th>
+                        <th>Nama Author</th>
                         <th>Slug</th>
                         <th></th>
                     </tr>
@@ -28,7 +28,7 @@
                 responsive: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('dashboard.manajemen-komik.artist.index') }}',
+                    url: '{{ route('dashboard.master-data.author.index') }}',
                 },
                 columns: [
                     { data: 'name', name: 'name' },
@@ -58,30 +58,30 @@
 
         function create() {
             Modal({
-                title: 'Create Artist',
-                url: '{{ route('dashboard.manajemen-komik.artist.create') }}'
+                title: 'Create Author',
+                url: '{{ route('dashboard.master-data.author.create') }}'
             });
         }
 
         function view(id) {
-            const url = '{{ route("dashboard.manajemen-komik.artist.view", ":id") }}'.replace(':id', id);
+            const url = '{{ route("dashboard.master-data.author.view", ":id") }}'.replace(':id', id);
             Modal({
-                title: 'View Artist',
+                title: 'View Author',
                 url: url
             });
         }
 
         function edit(id) {
-            const url = '{{ route("dashboard.manajemen-komik.artist.edit", ":id") }}'.replace(':id', id);
+            const url = '{{ route("dashboard.master-data.author.edit", ":id") }}'.replace(':id', id);
             Modal({
-                title: 'Edit Artist',
+                title: 'Edit Author',
                 url: url
             });
         }
 
         function remove(id) {
             $.ajax({
-                url: '{{ route("dashboard.manajemen-komik.artist.delete", ":id") }}'.replace(':id', id),
+                url: '{{ route("dashboard.master-data.author.delete", ":id") }}'.replace(':id', id),
                 type: "POST",
                 data: {
                     _token: '{{ csrf_token() }}'

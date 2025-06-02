@@ -12,8 +12,8 @@
             <table id="datatable" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Nama Genre</th>
-                        <th>slug</th>
+                        <th>Name Artist</th>
+                        <th>Slug</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -28,7 +28,7 @@
                 responsive: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('dashboard.manajemen-komik.genre.index') }}',
+                    url: '{{ route('dashboard.master-data.artist.index') }}',
                 },
                 columns: [
                     { data: 'name', name: 'name' },
@@ -58,30 +58,30 @@
 
         function create() {
             Modal({
-                title: 'Create Genre',
-                url: '{{ route('dashboard.manajemen-komik.genre.create') }}'
+                title: 'Create Artist',
+                url: '{{ route('dashboard.master-data.artist.create') }}'
             });
         }
 
         function view(id) {
-            const url = '{{ route("dashboard.manajemen-komik.genre.view", ":id") }}'.replace(':id', id);
+            const url = '{{ route("dashboard.master-data.artist.view", ":id") }}'.replace(':id', id);
             Modal({
-                title: 'View Genre',
+                title: 'View Artist',
                 url: url
             });
         }
 
         function edit(id) {
-            const url = '{{ route("dashboard.manajemen-komik.genre.edit", ":id") }}'.replace(':id', id);
+            const url = '{{ route("dashboard.master-data.artist.edit", ":id") }}'.replace(':id', id);
             Modal({
-                title: 'Edit Genre',
+                title: 'Edit Artist',
                 url: url
             });
         }
 
         function remove(id) {
             $.ajax({
-                url: '{{ route("dashboard.manajemen-komik.genre.delete", ":id") }}'.replace(':id', id),
+                url: '{{ route("dashboard.master-data.artist.delete", ":id") }}'.replace(':id', id),
                 type: "POST",
                 data: {
                     _token: '{{ csrf_token() }}'

@@ -7,10 +7,10 @@
                 @csrf
                 @include('layouts.partial.validate')
                 @include('layouts.partial.success')
-                @include('admin.judul.form')
+                @include('admin.comic_title.form')
                 <div class="mt-3">
                     <button type="button" class="btn btn-success" onclick="update({{ $data->id }})">Submit</button>
-                    <a href="{{ route('dashboard.manajemen-komik.judul.index') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ route('dashboard.manage-comics.comic-titles.index') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </form>
         </div>
@@ -23,7 +23,7 @@
             var form = $('#form')[0];
             var formData = new FormData(form);
             $.ajax({
-                url: '{{ route("dashboard.manajemen-komik.judul.update", ":id") }}'.replace(':id', id),
+                url: '{{ route("dashboard.manage-comics.comic-titles.update", ":id") }}'.replace(':id', id),
                 type: "POST",
                 data: formData,
                 processData: false,

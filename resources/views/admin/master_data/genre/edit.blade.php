@@ -1,22 +1,19 @@
-<form id="form" class="mt-3" enctype="multipart/form-data">
+<form id="form" class="mt-3">
     @csrf
     @include('layouts.partial.validate')
-    @include('admin.artist.form')
+    @include('admin.master_data.genre.form')
     <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-primary me-2" onclick="update({{ $data->id }})">Update</button>
+        <button type="button" class="btn btn-primary me-2" onclick="update({{ $data->id }})">Edit</button>
     </div>
 </form>
 
 <script>
     function update(id) {
-        let form = $('#form')[0];
-        let formData = new FormData(form);
+        let formData = $('#form').serialize();
         $.ajax({
-            url: '{{ route("dashboard.manajemen-komik.artist.update", ":id") }}'.replace(':id', id),
+            url: '{{ route("dashboard.master-data.genre.update", ":id") }}'.replace(':id', id),
             type: "POST",
             data: formData,
-            processData: false,
-            contentType: false,
             success: function (response) {
                 $('#modal').modal('hide');
                 showSuccess(response.message);
@@ -27,7 +24,6 @@
                 if (xhr.status === 422 && xhr.responseJSON.errors) {
                     $('.error-message').html(validation(xhr.responseJSON));
                 } else {
-                    let message = 'Terjadi kesalahan.';
                     if (xhr.responseJSON && xhr.responseJSON.message) {
                         message = xhr.responseJSON.message;
                     }

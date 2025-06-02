@@ -12,7 +12,7 @@ class GenreController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Manajemen Genre';
+        $title = 'Genre';
         if ($request->ajax()) {
             $query = Genre::all();
             return DataTables::of($query)
@@ -21,18 +21,18 @@ class GenreController extends Controller
                 })
                 ->make(true);
         }
-        return view('admin.genre.index', compact('title'));
+        return view('admin.master_data.genre.index', compact('title'));
     }
 
     public function view($id)
     {
         $data = Genre::findOrFail($id);
-        return view('admin.genre.view', compact('data'));
+        return view('admin.master_data.genre.view', compact('data'));
     }
 
     public function create()
     {
-        return view('admin.genre.create');
+        return view('admin.master_data.genre.create');
     }
 
     public function store(GenreRequest $request)
@@ -56,7 +56,7 @@ class GenreController extends Controller
     public function edit($id)
     {
         $data = Genre::findOrFail($id);
-        return view('admin.genre.edit', compact('data'));
+        return view('admin.master_data.genre.edit', compact('data'));
     }
 
     public function update(GenreRequest $request, $id)

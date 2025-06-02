@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\TitleRequest;
 use Illuminate\Support\Facades\Storage;
 
-class JudulController extends Controller
+class ComicTitleController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Manajemen Judul';
+        $title = 'Manajemen Comic Titles';
         if ($request->ajax()) {
             $query = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'created_at'])->with(['authors:id,name', 'artists:id,name', 'genres:id,name']);
             return DataTables::of($query)
@@ -54,13 +54,13 @@ class JudulController extends Controller
                 ->rawColumns(['status'])
                 ->make(true);
         }
-        return view('admin.judul.index', compact('title'));
+        return view('admin.comic_title.index', compact('title'));
     }
 
     public function view($id)
     {
         $data = Title::select(['id', 'title', 'slug', 'type', 'released_year', 'country', 'views', 'rating', 'status', 'cover_image', 'synopsis', 'created_at'])->with(['authors:id,name', 'artists:id,name', 'genres:id,name'])->find($id);
-        return view('admin.judul.view', compact('data'));
+        return view('admin.comic_title.view', compact('data'));
     }
 
     public function create()
@@ -70,7 +70,7 @@ class JudulController extends Controller
         $data['authors'] = Author::select(['id', 'name'])->get();
         $data['artists'] = Artist::select(['id', 'name'])->get();
 
-        return view('admin.judul.create', compact('title', 'data'));
+        return view('admin.comic_title.create', compact('title', 'data'));
     }
 
     public function store(TitleRequest $request)
@@ -131,7 +131,7 @@ class JudulController extends Controller
         $data['authors'] = Author::select(['id', 'name'])->get();
         $data['artists'] = Artist::select(['id', 'name'])->get();
 
-        return view('admin.judul.edit', compact('title', 'data'));
+        return view('admin.comic_title.edit', compact('title', 'data'));
     }
 
     public function update(TitleRequest $request, $id)

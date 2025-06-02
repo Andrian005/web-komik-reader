@@ -6,7 +6,7 @@
             <h3 class="portlet-title">{{ $title }} : {{ $data->title }}</h3>
 
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('dashboard.manajemen-komik.judul.index') }}" class="btn btn-secondary">
+                <a href="{{ route('dashboard.manage-comics.comic-titles.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left me-1"></i> Kembali
                 </a>
             </div>
