@@ -39,7 +39,7 @@ class Title extends Model
 
     public function genres()
     {
-        return $this->belongsToMany(Genre::class, 'title_genre', 'title_id', 'genre_id');
+        return $this->belongsToMany(Genre::class, 'genre_title', 'title_id', 'genre_id');
     }
 
     public function chapters()
