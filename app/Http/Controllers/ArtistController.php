@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ArtistRequest;
 use Exception;
 use App\Models\Artist;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ArtistRequest;
 use Illuminate\Support\Facades\Storage;
 
 class ArtistController extends Controller
@@ -38,6 +39,8 @@ class ArtistController extends Controller
     public function store(ArtistRequest $request)
     {
         $validated = $request->validated();
+
+        DB::beginTransaction();
         try {
             if ($request->hasFile('photo')) {
                 $file = $request->file('photo');
@@ -53,11 +56,13 @@ class ArtistController extends Controller
                 'photo' => $filename ?? null
             ]);
 
+            DB::commit();
             return response()->json([
                 'message' => 'Artist berhasil ditambahkan.',
                 'data' => $data
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal menambahkan Artist',
                 'error' => $e->getMessage()
@@ -75,6 +80,7 @@ class ArtistController extends Controller
     {
         $validated = $request->validated();
 
+        DB::beginTransaction();
         try {
             $artist = Artist::findOrFail($id);
 
@@ -98,11 +104,13 @@ class ArtistController extends Controller
                 'photo' => $filename ?? null
             ]);
 
+            DB::commit();
             return response()->json([
                 'message' => 'Artist berhasil diperbarui.',
                 'data' => $artist
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal memperbarui Artist',
                 'error' => $e->getMessage()
@@ -112,15 +120,18 @@ class ArtistController extends Controller
 
     public function delete($id)
     {
+        DB::beginTransaction();
         try {
             $data = Artist::find($id);
             $data->delete();
 
+            DB::commit();
             return response()->json([
                 'message' => 'Artist Berhasil di hapus',
                 'data' => $data
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal menghapus Artist',
                 'error' => $e->getMessage()

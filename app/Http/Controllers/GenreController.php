@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GenreRequest;
-use App\Models\Genre;
 use Exception;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\GenreRequest;
 
 class GenreController extends Controller
 {
@@ -38,17 +39,21 @@ class GenreController extends Controller
     public function store(GenreRequest $request)
     {
         $validated = $request->validated();
+
+        DB::beginTransaction();
         try {
             $genre = Genre::create([
                 'name' => $validated['nama'],
                 'slug' => $validated['slug'],
             ]);
 
+            DB::commit();
             return response()->json([
                 'message' => 'Genre berhasil ditambahkan.',
                 'data' => $genre
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json(['message' => 'Gagal menyimpan genre.'], 500);
         }
     }
@@ -62,6 +67,8 @@ class GenreController extends Controller
     public function update(GenreRequest $request, $id)
     {
         $validated = $request->validated();
+
+        DB::beginTransaction();
         try {
             $data = Genre::findOrFail($id);
 
@@ -70,24 +77,30 @@ class GenreController extends Controller
                 'slug' => $validated['slug'],
             ]);
 
+            DB::commit();
             return response()->json([
                 'message' => 'Genre berhasil diupdate.',
                 'data' => $data
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json(['message' => 'Gagal mengupdate genre.'], 500);
         }
     }
 
     public function delete($id)
     {
+        DB::beginTransaction();
         try {
             $data = Genre::find($id)->delete();
+
+            DB::commit();
             return response()->json([
                 'message' => 'Genre berhasil didelete.',
                 'data' => $data
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json(['message' => 'Gagal menghapus genre.'], 500);
         }
     }

@@ -79,6 +79,8 @@ class ComicTitleController extends Controller
     public function store(TitleRequest $request)
     {
         $validated = $request->validated();
+
+        DB::beginTransaction();
         try {
             if ($request->hasFile('cover_image')) {
                 $file = $request->file('cover_image');
@@ -108,6 +110,7 @@ class ComicTitleController extends Controller
                 }
             }
 
+            DB::commit();
             return response()->json([
                 'message' => 'Berhasil menambah Title',
                 'data' => [
@@ -115,6 +118,7 @@ class ComicTitleController extends Controller
                 ]
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal menyimpan title.',
                 'error' => $e->getMessage()
@@ -141,6 +145,8 @@ class ComicTitleController extends Controller
     public function update(TitleRequest $request, $id)
     {
         $validated = $request->validated();
+
+        DB::beginTransaction();
         try {
             $data = Title::findOrFail($id);
             if (!$request->hasFile('cover_image') && $data->cover_image) {
@@ -184,11 +190,13 @@ class ComicTitleController extends Controller
                 }
             }
 
+            DB::commit();
             return response()->json([
                 'message' => 'Berhasil mengupdate Title',
                 'data' => $data
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal mengupdate title.',
                 'error' => $e->getMessage()
@@ -198,6 +206,7 @@ class ComicTitleController extends Controller
 
     public function delete($id)
     {
+        DB::beginTransaction();
         try {
             $title = Title::find($id);
             $title->delete();

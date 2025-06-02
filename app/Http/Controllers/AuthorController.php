@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthorRequest;
-use App\Models\Author;
 use Exception;
+use App\Models\Author;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AuthorRequest;
+use Illuminate\Support\Facades\Storage;
 
 class AuthorController extends Controller
 {
@@ -39,6 +40,8 @@ class AuthorController extends Controller
     public function store(AuthorRequest $request)
     {
         $validated = $request->validated();
+
+        DB::beginTransaction();
         try {
             if ($request->hasFile('photo')) {
                 $file = $request->file('photo');
@@ -54,11 +57,13 @@ class AuthorController extends Controller
                 'photo' => $filename ?? null
             ]);
 
+            DB::commit();
             return response()->json([
                 'message' => 'Author berhasil ditambahkan.',
                 'data' => $data
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal menambahkan Author',
                 'error' => $e->getMessage()
@@ -76,6 +81,7 @@ class AuthorController extends Controller
     {
         $validated = $request->validated();
 
+        DB::beginTransaction();
         try {
             $author = Author::findOrFail($id);
 
@@ -99,11 +105,13 @@ class AuthorController extends Controller
                 'photo' => $filename ?? null
             ]);
 
+            DB::commit();
             return response()->json([
                 'message' => 'Author berhasil diperbarui.',
                 'data' => $author
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal memperbarui Author',
                 'error' => $e->getMessage()
@@ -113,15 +121,18 @@ class AuthorController extends Controller
 
     public function delete($id)
     {
+        DB::beginTransaction();
         try {
             $data = Author::find($id);
             $data->delete();
 
+            DB::commit();
             return response()->json([
                 'message' => 'Author Berhasil di hapus',
                 'data' => $data
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'message' => 'Gagal menghapus Author',
                 'error' => $e->getMessage()

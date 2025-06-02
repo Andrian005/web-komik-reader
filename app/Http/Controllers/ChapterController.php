@@ -23,6 +23,7 @@ class ChapterController extends Controller
 
     public function store(Request $request, $comic_title_id)
     {
+        DB::beginTransaction();
         try {
             $releaseDate = Carbon::parse($request->release_date)->format('Y-m-d');
 
