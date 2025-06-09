@@ -73,7 +73,17 @@ function showToast(type, message) {
 }
 
 function showError(errors) {
-    Object.values(errors).flat().forEach(msg => showToast("error", msg));
+    if (typeof errors === 'string') {
+        showToast("error", errors);
+    } else if (typeof errors === 'object' && errors !== null) {
+        Object.values(errors).flat().forEach(msg => {
+            if (typeof msg === 'string') {
+                showToast("error", msg);
+            }
+        });
+    } else {
+        showToast("error", "Terjadi kesalahan.");
+    }
 }
 
 function confirmDelete(callback) {
@@ -120,6 +130,13 @@ $(function () {
     });
     $(".datepicker2").datepicker('setDate', new Date());
 
+    $(".date-time-picker").datetimepicker({
+        dateFormat: 'yy-mm-dd',
+        timeFormat: 'HH:mm:ss',
+        controlType: 'select',
+        oneLine: true,
+        showSecond: true
+    });
 
     $(document).on("change", "#photo", function () {
         $(this).next(".custom-file-label").html(this.files[0]?.name || "Pilih file");
@@ -137,6 +154,13 @@ $(function () {
 
     $('.number').on('input', function() {
         $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+
+    $('.number-decimal').on('input', function () {
+        let val = $(this).val();
+        val = val.replace(/[^0-9.]/g, '');
+        val = val.replace(/(\..*)\./g, '$1');
+        $(this).val(val);
     });
 
 });

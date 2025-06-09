@@ -63,8 +63,8 @@
                     render: (data, type, row) => {
                         const link = urlCreateChapter.replace('ID', row.id);
                         return `
-                            <a href="${link}" class="btn btn-sm btn-success d-inline-flex" title="Tambah Chapter" style="gap: 6px; padding: 0.375rem 0.75rem; min-width: 110px;">
-                                <i class="fas fa-plus" style="line-height: 1;"></i>
+                            <a href="${link}" class="btn btn-sm btn-success d-inline-flex" title="Tambah Chapter" style="gap: 6px; padding: 0.375rem 0.75rem; min-width: 130px;">
+                                <i class="fas fa-layer-group" style="line-height: 1;"></i>
                                 <span style="flex-grow: 1; text-align: left;">Tambah Chapter</span>
                             </a>
                         `;

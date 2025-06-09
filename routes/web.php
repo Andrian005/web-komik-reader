@@ -64,9 +64,9 @@ Route::middleware('admin')->group(function () {
                     Route::get('create/{comic_title_id}', [ChapterController::class, 'create'])->name('dashboard.manage-comics.comic-titles.chapter.create');
                     Route::post('store/{comic_title_id}', [ChapterController::class, 'store'])->name('dashboard.manage-comics.comic-titles.chapter.store');
                     Route::get('view-chapter/{comic_title_id}', [ChapterController::class, 'viewChapter'])->name('dashboard.manage-comics.comic-titles.chapter.view-chapter');
-                    Route::get('edit/{id}', [ChapterController::class, 'edit'])->name('dashboard.manage-comics.comic-titles.chapter.edit');
-                    Route::post('update/{id}', [ChapterController::class, 'update'])->name('dashboard.manage-comics.comic-titles.chapter.update');
-                    Route::post('delete/{id}', [ChapterController::class, 'delete'])->name('dashboard.manage-comics.comic-titles.chapter.delete');
+                    Route::get('edit/{chapter}', [ChapterController::class, 'edit'])->name('dashboard.manage-comics.comic-titles.chapter.edit');
+                    Route::post('update/{chapter}', [ChapterController::class, 'update'])->name('dashboard.manage-comics.comic-titles.chapter.update');
+                    Route::post('delete/{chapter}', [ChapterController::class, 'delete'])->name('dashboard.manage-comics.comic-titles.chapter.delete');
                     Route::post('chapter-pages/upload', [ChapterPageController::class, 'upload'])->name('chapter_pages.upload');
                     Route::post('chapter-pages/delete', [ChapterPageController::class, 'delete'])->name('chapter_pages.delete');
                 });
